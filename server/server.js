@@ -17,6 +17,10 @@ const pool = new Pool({
     port: 5432
 })
 
+
+//USER ROUTES
+
+
 // GET /users
 app.get('/users', async (req, res) => {
     try {
@@ -92,6 +96,87 @@ app.delete('/users/:id', async (req, res) => {
     }
 });
 
+
+//GROUP ROUTES
+
+
+// GET /groups
+app.get('/groups', async (req, res) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM groups');
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /groups/:id
+app.get('/groups/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { rows } = await pool.query('SELECT * FROM groups WHERE id = $1', [id]);
+        if (rows.length === 0) {
+            res.status(404).json({ error: 'Group not found' });
+        } else {
+            res.json(rows[0]);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// POST /groups
+app.post('/groups', async (req, res) => {
+    const { name, description, creator_id } = req.body;
+    try {
+        const { rows } = await pool.query(
+            'INSERT INTO groups (name, description, creator_id) VALUES ($1, $2, $3) RETURNING *',
+            [name, description, creator_id]
+        );
+        res.status(201).json(rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /groups/:id
+app.put('/groups/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    try {
+        const { rows } = await pool.query(
+            'UPDATE groups SET name = $1, description = $2 WHERE id = $3 RETURNING *',
+            [name, description, id]
+        );
+        if (rows.length === 0) {
+            res.status(404).json({ error: 'Group not found' });
+        } else {
+            res.json(rows[0]);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /groups/:id
+app.delete('/groups/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { rows } = await pool.query('DELETE FROM groups WHERE id = $1 RETURNING *', [id]);
+        if (rows.length === 0) {
+            res.status(404).json({ error: 'Group not found' });
+        } else {
+            res.json(rows[0]);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
 
 
 
