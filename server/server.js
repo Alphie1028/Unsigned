@@ -179,6 +179,80 @@ app.delete('/groups/:id', async (req, res) => {
 });
 
 
+//GROUP MEMBER ROUTES
+
+
+// Get all group members
+app.get('/group_members', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM group_members');
+    res.status(200).json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Get a specific group member
+app.get('/group_members/:group_id/:user_id', async (req, res) => {
+  const { group_id, user_id } = req.params;
+  try {
+    const { rows } = await pool.query('SELECT * FROM group_members WHERE group_id=$1 AND user_id=$2', [group_id, user_id]);
+    if (rows.length === 0) {
+      res.status(404).json({ message: 'Group member not found' });
+    } else {
+      res.status(200).json(rows[0]);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Create a new group member
+app.post('/group_members', async (req, res) => {
+  const { group_id, user_id } = req.body;
+  try {
+    await pool.query('INSERT INTO group_members (group_id, user_id) VALUES ($1, $2)', [group_id, user_id]);
+    res.status(201).json({ message: 'Group member created successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Update an existing group member
+app.put('/group_members/:group_id/:user_id', async (req, res) => {
+  const { group_id, user_id } = req.params;
+  const { new_group_id, new_user_id } = req.body;
+  try {
+    const { rowCount } = await pool.query('UPDATE group_members SET group_id=$1, user_id=$2 WHERE group_id=$3 AND user_id=$4', [new_group_id, new_user_id, group_id, user_id]);
+    if (rowCount === 0) {
+      res.status(404).json({ message: 'Group member not found' });
+    } else {
+      res.status(200).json({ message: 'Group member updated successfully' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Delete a group member
+app.delete('/group_members/:group_id/:user_id', async (req, res) => {
+  const { group_id, user_id } = req.params;
+  try {
+    const { rowCount } = await pool.query('DELETE FROM group_members WHERE group_id=$1 AND user_id=$2', [group_id, user_id]);
+    if (rowCount === 0) {
+      res.status(404).json({ message: 'Group member not found' });
+    } else {
+      res.status(200).json({ message: 'Group member deleted successfully' });
+    }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 
 
