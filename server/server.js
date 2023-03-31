@@ -255,6 +255,84 @@ app.delete('/group_members/:group_id/:user_id', async (req, res) => {
 });
 
 
+//POST ROUTES
+
+
+// GET all posts
+app.get('/posts', async (req, res) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM posts');
+        res.status(200).json(rows);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// GET post by ID
+app.get('/posts/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { rows } = await pool.query('SELECT * FROM posts WHERE id = $1', [id]);
+        if (rows.length > 0) {
+            res.status(200).json(rows[0]);
+        } else {
+            res.status(404).send(`Post with ID ${id} not found.`);
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// CREATE post
+app.post('/posts', async (req, res) => {
+    const { title, content, author_id, group_id } = req.body;
+    try {
+        const { rows } = await pool.query(
+            'INSERT INTO posts (title, content, author_id, group_id) VALUES ($1, $2, $3, $4) RETURNING *',
+            [title, content, author_id, group_id]
+        );
+        res.status(201).json(rows[0]);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// UPDATE post by ID
+app.put('/posts/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, content, author_id, group_id } = req.body;
+    try {
+        const { rows } = await pool.query(
+            'UPDATE posts SET title = $1, content = $2, author_id = $3, group_id = $4 WHERE id = $5 RETURNING *',
+            [title, content, author_id, group_id, id]
+        );
+        if (rows.length > 0) {
+            res.status(200).json(rows[0]);
+        } else {
+            res.status(404).send(`Post with ID ${id} not found.`);
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// DELETE post by ID
+app.delete('/posts/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { rows } = await pool.query('DELETE FROM posts WHERE id = $1 RETURNING *', [id]);
+        if (rows.length > 0) {
+            res.status(200).json(rows[0]);
+        } else {
+            res.status(404).send(`Post with ID ${id} not found.`);
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+
+
 
 
 
