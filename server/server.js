@@ -18,7 +18,7 @@ const pool = new Pool({
 })
 
 
-//USER ROUTES
+//******************************************************************************************************************USER ROUTES
 
 
 // GET /users
@@ -97,7 +97,7 @@ app.delete('/users/:id', async (req, res) => {
 });
 
 
-//GROUP ROUTES
+//******************************************************************************************************************GROUP ROUTES
 
 
 // GET /groups
@@ -179,7 +179,7 @@ app.delete('/groups/:id', async (req, res) => {
 });
 
 
-//GROUP MEMBER ROUTES
+//******************************************************************************************************************GROUP MEMBER ROUTES
 
 
 // Get all group members
@@ -255,7 +255,7 @@ app.delete('/group_members/:group_id/:user_id', async (req, res) => {
 });
 
 
-//POST ROUTES
+//******************************************************************************************************************POST ROUTES
 
 
 // GET all posts
@@ -331,6 +331,85 @@ app.delete('/posts/:id', async (req, res) => {
     }
 });
 
+
+//******************************************************************************************************************COMMENT ROUTES
+
+
+// Create a new comment
+app.post('/comments', async (req, res) => {
+    try {
+        const { content, author_id, post_id } = req.body;
+        const newComment = await pool.query(
+            'INSERT INTO comments (content, author_id, post_id) VALUES ($1, $2, $3) RETURNING *',
+            [content, author_id, post_id]
+        );
+        res.json(newComment.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Get all comments for a specific post
+app.get('/posts/:postId/comments', async (req, res) => {
+    try {
+        const { postId } = req.params;
+        const comments = await pool.query(
+            'SELECT * FROM comments WHERE post_id = $1 ORDER BY created_at DESC',
+            [postId]
+        );
+        res.json(comments.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Get a specific comment by id
+app.get('/comments/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const comment = await pool.query(
+            'SELECT * FROM comments WHERE id = $1',
+            [id]
+        );
+        res.json(comment.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Update a comment
+app.put('/comments/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { content } = req.body;
+        const updatedComment = await pool.query(
+            'UPDATE comments SET content = $1 WHERE id = $2 RETURNING *',
+            [content, id]
+        );
+        res.json(updatedComment.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Delete a comment
+app.delete('/comments/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedComment = await pool.query(
+            'DELETE FROM comments WHERE id = $1 RETURNING *',
+            [id]
+        );
+        res.json(deletedComment.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
 
 
 
