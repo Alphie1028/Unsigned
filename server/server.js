@@ -117,6 +117,25 @@ app.delete('/users/:id', async (req, res) => {
 //******************************************************************************************************************GROUP ROUTES
 
 
+//GET GROUPS BY CREATOR
+app.get('/users/:userId/creator', async (req, res) => {
+    const userId = parseInt(req.params.userId);
+
+    try {
+        const groups = await pool.query(
+            `SELECT * FROM groups WHERE creator_id = $1`,
+            [userId]
+        );
+
+        res.json(groups.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
+
+
 // GET /groups
 app.get('/groups', async (req, res) => {
     try {

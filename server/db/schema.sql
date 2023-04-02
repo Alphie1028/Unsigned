@@ -15,9 +15,9 @@ CREATE TABLE groups (
 );
 
 CREATE TABLE group_members (
+  id SERIAL PRIMARY KEY,
   group_id INTEGER NOT NULL REFERENCES groups(id),
-  user_id INTEGER NOT NULL REFERENCES users(id),
-  PRIMARY KEY (group_id, user_id)
+  user_id INTEGER NOT NULL REFERENCES users(id)
 );
 
 CREATE TABLE posts (
