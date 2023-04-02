@@ -36,6 +36,7 @@ function CheckUserInfo({ email, password }) {
     return (
         <HomePage
             name = {user.name}
+            userId={user.id}
         />
     );
 }

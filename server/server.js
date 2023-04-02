@@ -35,18 +35,21 @@ app.get('/users', async (req, res) => {
     }
 });
 
-// GET /users
-// app.get('/users', async (req, res) => {
-//     try {
-//         const { rows } = await pool.query('SELECT * FROM users');
-//         res.json(rows);
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Server Error');
-//     }
-// });
+// GET /users/:user_id/groups
+app.get('/users/:user_id/groups', async (req, res) => {
+    const { user_id } = req.params;
+    try {
+        const { rows } = await pool.query(
+            'SELECT groups.* FROM groups JOIN group_members ON groups.id=group_members.group_id WHERE group_members.user_id=$1',
+            [user_id]
+        );
+        res.status(200).json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
-// GET /users/:id
 app.get('/users/:id', async (req, res) => {
     const { id } = req.params;
     try {

@@ -37,6 +37,7 @@ function NewUser({ name, email, password }) {
     return( 
         <HomePage
             name={user.name}
+            userId={user.id}
         />
     )
 }
