@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import ReactDOM from 'react-dom';
+import NewUser from "./NewUser";
 
 function SignUpForm() {
     const [name, setName] = useState("");
@@ -10,6 +12,7 @@ function SignUpForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("Submitted:", name, email, password);
+        ReactDOM.render(<NewUser name = {name} email={email} password={password} />, document.getElementById('root'));
     };
 
     return (

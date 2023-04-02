@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 function CheckUserInfo({ email, password }) {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
