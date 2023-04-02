@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import HomePage from "./HomePage";
 
 
 function CheckUserInfo({ email, password }) {
@@ -33,11 +34,9 @@ function CheckUserInfo({ email, password }) {
     }
 
     return (
-        <div>
-            <h2>User Info</h2>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
-        </div>
+        <HomePage
+            name = {user.name}
+        />
     );
 }
 

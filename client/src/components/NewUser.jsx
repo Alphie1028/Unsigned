@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import HomePage from "./HomePage";
 
 function NewUser({ name, email, password }) {
     const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         async function createUser() {
@@ -15,6 +17,7 @@ function NewUser({ name, email, password }) {
                 });
                 const data = await response.json();
                 console.log("User created:", data);
+                setUser(data);
             } catch (err) {
                 setError(err.message);
             }
@@ -27,7 +30,15 @@ function NewUser({ name, email, password }) {
         return <div>Error: {error}</div>;
     }
 
-    return <div>New user created!</div>;
+    if(user === null){
+        return <div>Loading...</div>
+    }
+
+    return( 
+        <HomePage
+            name={user.name}
+        />
+    )
 }
 
 export default NewUser;
