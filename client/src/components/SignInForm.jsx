@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import ReactDOM from 'react-dom';
+import CheckUserInfo from "./CheckUserInfo";
 
 function SignInForm() {
     const [email, setEmail] = useState("");
@@ -8,6 +10,7 @@ function SignInForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(email, password);
+        ReactDOM.render(<CheckUserInfo email={email} password={password} />, document.getElementById('root'));
     }
     return (
         <form onSubmit={handleSubmit}>

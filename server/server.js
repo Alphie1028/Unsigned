@@ -27,7 +27,7 @@ app.get('/users', async (req, res) => {
         if (rows.length > 0) {
             res.json(rows[0]);
         } else {
-            res.status(404).send('User not found');
+            res.status(404).json({message:'User not found'});
         }
     } catch (err) {
         console.error(err);
@@ -36,15 +36,15 @@ app.get('/users', async (req, res) => {
 });
 
 // GET /users
-app.get('/users', async (req, res) => {
-    try {
-        const { rows } = await pool.query('SELECT * FROM users');
-        res.json(rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
-    }
-});
+// app.get('/users', async (req, res) => {
+//     try {
+//         const { rows } = await pool.query('SELECT * FROM users');
+//         res.json(rows);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Server Error');
+//     }
+// });
 
 // GET /users/:id
 app.get('/users/:id', async (req, res) => {
