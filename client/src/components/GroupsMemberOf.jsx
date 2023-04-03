@@ -4,7 +4,7 @@ import FetchGroupsMembersOf from "./FetchGroupsMemberOf";
 import OpenGroup from "./OpenGroup";
 import "/src/styles/AllGroups.css";
 
-function GroupsMemberOf({ userId }) {
+function GroupsMemberOf({ userId, groupCreated }) {
     const getRandomColor = () => {
         const hue = Math.floor(Math.random() * 360);
         const pastel = "60%";
@@ -23,7 +23,7 @@ function GroupsMemberOf({ userId }) {
 
     return (
         <>
-            <FetchGroupsMembersOf userId={userId}>
+            <FetchGroupsMembersOf userId={userId} groupCreated={groupCreated}>
                 {({ groups }) => (
                     <div>
                         {groups.length === 0 && <p>You do not belong to any groups.</p>}

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 
-function CreateGroup({userId}){
+function CreateGroup({userId, setGroupCreated}){
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
@@ -33,7 +33,9 @@ function CreateGroup({userId}){
 
         const group = await response.json();
         console.log('Group updated:', group);
+        setGroupCreated(true);
         setModalOpen(false);
+        setGroupCreated(false);
     };
     
     return (

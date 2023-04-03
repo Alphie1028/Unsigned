@@ -4,7 +4,7 @@ import FetchOwnedGroups from "./FetchOwnedGroups";
 import OpenGroup from "./OpenGroup";
 import "/src/styles/AllGroups.css";
 
-function OwnedGroups({ userId }) {
+function OwnedGroups({ userId, groupCreated}) {
     const getRandomColor = () => {
         const hue = Math.floor(Math.random() * 360);
         const pastel = "60%";
@@ -21,7 +21,7 @@ function OwnedGroups({ userId }) {
 
     return (
         <>
-            <FetchOwnedGroups userId={userId}>
+            <FetchOwnedGroups userId={userId} groupCreated={groupCreated}>
                 {({ owned }) => (
                     <div className="d-flex justify-content-center">
                         {owned.map((group) => (

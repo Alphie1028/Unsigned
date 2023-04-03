@@ -4,7 +4,7 @@ import FetchAllGroups from "./FetchAllGroups";
 import OpenGroup from "./OpenGroup";
 import "/src/styles/AllGroups.css";
 
-function AllGroups() {
+function AllGroups({ groupCreated }) {
     const getRandomColor = () => {
         const hue = Math.floor(Math.random() * 360);
         const pastel = "60%";
@@ -22,7 +22,7 @@ function AllGroups() {
     return (
         <>
             
-            <FetchAllGroups>
+            <FetchAllGroups groupCreated={groupCreated}>
                 {({ groups }) => (
                     <div className="d-flex justify-content-center">
                         {groups.map((group) => (
