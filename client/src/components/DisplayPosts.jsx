@@ -1,4 +1,5 @@
 import React from 'react';
+import FetchComments from './FetchComments';
 
 function DisplayPosts({ posts }) {
     return (
@@ -13,10 +14,12 @@ function DisplayPosts({ posts }) {
                             <p>{post.content}</p>
                             <p>Author: {post.author}</p>
                             <p>Created at: {post.created_at}</p>
+                            <FetchComments postId={post.id} />
                         </li>
                     ))}
                 </ul>
             )}
+            
         </div>
     );
 }
