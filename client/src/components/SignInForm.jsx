@@ -42,7 +42,7 @@ function SignInForm() {
                         required
                     />
 
-                    <MDBBtn type='submit' block>
+                    <MDBBtn type='submit' style={{ backgroundColor: '#ff999c' }} block>
                         Sign in
                     </MDBBtn>
                 </form>

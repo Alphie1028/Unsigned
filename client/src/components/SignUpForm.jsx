@@ -51,7 +51,7 @@ function SignUpForm() {
                         onChange={(event) => setPassword(event.target.value)}
                         required
                     />
-                    <MDBBtn type='submit' block>
+                    <MDBBtn type='submit' style={{ backgroundColor: '#ff999c' }} block>
                         Sign up
                     </MDBBtn>
                 </form>

@@ -7,7 +7,7 @@ import './AllGroups.css';
 function AllGroups() {
     const getRandomColor = () => {
         const hue = Math.floor(Math.random() * 360);
-        const pastel = "40%";
+        const pastel = "60%";
         return `hsl(${hue}, ${pastel}, ${pastel})`;
     };
 
