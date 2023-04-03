@@ -43,6 +43,7 @@ function AllGroups() {
                     </div>
                 )}
             </FetchAllGroups>
+            <br></br>
             {selectedGroup && <OpenGroup group={selectedGroup} />}
         </>
     );

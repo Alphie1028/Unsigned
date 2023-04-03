@@ -49,6 +49,7 @@ function GroupsMemberOf({ userId }) {
                     </div>
                 )}
             </FetchGroupsMembersOf>
+            <br></br>
             {selectedGroup && <OpenGroup group={selectedGroup} />}
         </>
     );

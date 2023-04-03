@@ -8,7 +8,6 @@ function DisplayComments({ comments }) {
             {comments.map(comment => (
                 <div key={comment.id}>
                     <p>{comment.content}</p>
-                    <p>Posted by: {comment.author}</p>
                     <p>Posted at: {new Date(comment.created_at).toLocaleString()}</p>
                     <hr />
                 </div>

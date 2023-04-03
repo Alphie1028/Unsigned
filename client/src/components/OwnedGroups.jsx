@@ -42,6 +42,7 @@ function OwnedGroups({ userId }) {
                     </div>
                 )}
             </FetchOwnedGroups>
+            <br></br>
             {selectedGroup && <OpenGroup group={selectedGroup} />}
         </>
     );
