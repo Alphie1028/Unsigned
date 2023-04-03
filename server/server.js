@@ -294,10 +294,11 @@ app.delete('/group_members/:group_id/:user_id', async (req, res) => {
 //******************************************************************************************************************POST ROUTES
 
 
-// GET all posts
-app.get('/posts', async (req, res) => {
+// GET all posts by group
+app.get('/posts/:groupId', async (req, res) => {
+    const groupId = req.params.groupId;
     try {
-        const { rows } = await pool.query('SELECT * FROM posts');
+        const { rows } = await pool.query('SELECT * FROM posts WHERE group_id = $1', [groupId]);
         res.status(200).json(rows);
     } catch (err) {
         res.status(400).send(err);

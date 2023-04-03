@@ -1,25 +1,56 @@
-import React from 'react';
-import FetchGroupsMembersOf from './FetchGroupsMemberOf';
+import React, { useState } from "react";
+import { MDBBtn } from "mdbreact";
+import FetchGroupsMembersOf from "./FetchGroupsMemberOf";
+import OpenGroup from "./OpenGroup";
+import "./AllGroups.css";
 
-function GroupsMemberOf({userId}) {
+function GroupsMemberOf({ userId }) {
+    const getRandomColor = () => {
+        const hue = Math.floor(Math.random() * 360);
+        const pastel = "40%";
+        return `hsl(${hue}, ${pastel}, ${pastel})`;
+    };
+
+    const [selectedGroup, setSelectedGroup] = useState(null);
+
+    const handleGroupClick = (group) => {
+        if (selectedGroup && selectedGroup.id === group.id) {
+            setSelectedGroup(null);
+        } else {
+            setSelectedGroup(group);
+        }
+    };
+
     return (
-        <FetchGroupsMembersOf userId={userId}>
-            {({ groups }) => (
-                <div>
-                    <h2>Groups You Belong To:</h2>
-                    {groups.length === 0 && <p>You do not belong to any groups.</p>}
-                    {groups.length > 0 && (
-                        <ul>
-                            {groups.map((group) => (
-                                <li key={group.id}>
-                                    {group.name} - {group.description}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-            )}
-        </FetchGroupsMembersOf>
+        <>
+            <FetchGroupsMembersOf userId={userId}>
+                {({ groups }) => (
+                    <div>
+                        {groups.length === 0 && <p>You do not belong to any groups.</p>}
+                        {groups.length > 0 && (
+                            <div className="d-flex justify-content-center">
+                                {groups.map((group) => (
+                                    <MDBBtn
+                                        key={group.id}
+                                        color="primary"
+                                        rounded
+                                        className="mx-2"
+                                        style={{ backgroundColor: getRandomColor() }}
+                                        title={group.description}
+                                        data-mdb-toggle="tooltip"
+                                        data-mdb-placement="bottom"
+                                        onClick={() => handleGroupClick(group)}
+                                    >
+                                        {group.name}
+                                    </MDBBtn>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </FetchGroupsMembersOf>
+            {selectedGroup && <OpenGroup group={selectedGroup} />}
+        </>
     );
 }
 

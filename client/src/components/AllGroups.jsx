@@ -11,14 +11,17 @@ function AllGroups() {
         return `hsl(${hue}, ${pastel}, ${pastel})`;
     };
 
-    const [openGroup, setOpenGroup] = useState(null);
+    const [selectedGroup, setSelectedGroup] = useState(null);
 
-    const handleClick = (group) => {
-        setOpenGroup(group);
+    const handleGroupClick = (group) => {
+        setSelectedGroup(prevSelectedGroup =>
+            prevSelectedGroup === group ? null : group
+        );
     };
 
     return (
         <>
+            
             <FetchAllGroups>
                 {({ groups }) => (
                     <div className="d-flex justify-content-center">
@@ -29,7 +32,10 @@ function AllGroups() {
                                 rounded
                                 className="mx-2"
                                 style={{ backgroundColor: getRandomColor() }}
-                                onClick={() => handleClick(group)}
+                                title={group.description}
+                                data-mdb-toggle="tooltip"
+                                data-mdb-placement="bottom"
+                                onClick={() => handleGroupClick(group)}
                             >
                                 {group.name}
                             </MDBBtn>
@@ -37,14 +43,12 @@ function AllGroups() {
                     </div>
                 )}
             </FetchAllGroups>
-            {openGroup && <OpenGroup group={openGroup} />}
+            {selectedGroup && <OpenGroup group={selectedGroup} />}
         </>
     );
 }
 
-
 export default AllGroups;
-
 
 
 
