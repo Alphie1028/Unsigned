@@ -30,9 +30,9 @@ function DeleteGroup({ userId, setGroupDeleted, groupCreated}) {
         }
         setGroups(groups.filter(group => group.id !== selectedGroup.id));
         setSelectedGroup(null);
-        setGroupDeleted(true)
-        setModalOpen(false);
-        setGroupDeleted(false)
+        setGroupDeleted(true);
+        toggleModal();
+
     };
 
     return (
