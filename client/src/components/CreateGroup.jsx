@@ -26,16 +26,40 @@ function CreateGroup({userId, setGroupCreated}){
         });
 
         if (!response.ok) {
-            console.error('Failed to update group:', response);
-            alert('Failed to update group. Please try again later.');
+            console.error('Failed to create group:', response);
+            alert('Failed to create group. Please try again later.');
             return;
         }
 
         const group = await response.json();
-        console.log('Group updated:', group);
+        console.log('Group created:', group);
+
+        // Add the user as a member to the group
+        const groupMembersResponse = await fetch('http://localhost:3000/group_members', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                group_id: group.id,
+                user_id: userId,
+            }),
+        });
+
+        if (!groupMembersResponse.ok) {
+            console.error('Failed to add user as a member to the group:', groupMembersResponse);
+            alert('Failed to add user as a member to the group. Please try again later.');
+            return;
+        }
+
+        console.log('User added as a member to the group:', groupMembersResponse);
+
+        // Reset the form and close the modal
+        setName('');
+        setDescription('');
         setGroupCreated(true);
         setModalOpen(false);
-        setGroupCreated(false);
+        setGroupCreated(false)
     };
     
     return (
