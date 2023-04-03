@@ -2,7 +2,7 @@ import React from "react";
 import AllGroups from "./AllGroups";
 import GroupsMemberOf from "./GroupsMemberOf";
 import OwnedGroups from "./OwnedGroups";
-import "./HomePage.css"
+import "/src/styles/HomePage.css"
 
 
 function HomePage({name, userId}){

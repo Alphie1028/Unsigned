@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MDBBtn } from "mdbreact";
 import FetchGroupsMembersOf from "./FetchGroupsMemberOf";
 import OpenGroup from "./OpenGroup";
-import "./AllGroups.css";
+import "/src/styles/AllGroups.css";
 
 function GroupsMemberOf({ userId }) {
     const getRandomColor = () => {
