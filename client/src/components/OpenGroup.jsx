@@ -43,7 +43,9 @@ function OpenGroup({ group, userId, joinedGroup, setJoinedGroup }) {
             alert('Failed to remove user from group. Please try again later.');
             return;
         }
+        setJoinedGroup(true);
         setIsMember(false);
+        setJoinedGroup(false);
     }
 
     return (
@@ -63,7 +65,7 @@ function OpenGroup({ group, userId, joinedGroup, setJoinedGroup }) {
                 ) : isMember ? (
                     <>
                         <div>You are a member of this group.</div>
-                        <LeaveGroup isMember={isMember} removeFromGroup={removeFromGroup} />
+                            <LeaveGroup isMember={isMember} removeFromGroup={removeFromGroup} />
                     </>
                 ) : (
                     <JoinButton groupId={group.id} userId={userId} setJoinedGroup={setJoinedGroup} />

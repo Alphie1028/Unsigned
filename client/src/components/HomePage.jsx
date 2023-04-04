@@ -10,6 +10,7 @@ function HomePage({name, userId}){
     const [groupCreated, setGroupCreated] = useState(false);
     const [groupDeleted, setGroupDeleted] = useState(false);
     const [joinedGroup, setJoinedGroup] = useState(false);
+    
 
     return(
         <>

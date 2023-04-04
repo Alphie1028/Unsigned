@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MDBBtn } from 'mdbreact';
 
-function LeaveGroup({ isMember, removeFromGroup }) {
+function LeaveGroup({ isMember, removeFromGroup}) {
     return (
         <>
             {isMember && (
