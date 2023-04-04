@@ -1,0 +1,18 @@
+#menu {
+    background: linear-gradient(to right, #e0bbff, #d4fc79);
+    max-width: 20%;
+    height: 50px;
+    
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(48, 47, 47);
+    font-size: 2em;
+    
+    border-radius: 40px;
+}
+
+
+.delete-group-dropDown {
+    background-color: red;
+}

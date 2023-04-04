@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MDBBtn, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter } from 'mdbreact';
+import "/src/styles/DeleteGroup.css"
 
-function DeleteGroup({ userId, setGroupDeleted, groupCreated}) {
+function DeleteGroup({ userId, setGroupDeleted, groupCreated }) {
     const [groups, setGroups] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
@@ -37,8 +38,8 @@ function DeleteGroup({ userId, setGroupDeleted, groupCreated}) {
 
     return (
         <>
-            <MDBDropdown>
-                <MDBDropdownToggle caret color="primary">
+            <MDBDropdown  className="rounded">
+                <MDBDropdownToggle caret color="danger" className="rounded">
                     Delete Group
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
@@ -49,7 +50,7 @@ function DeleteGroup({ userId, setGroupDeleted, groupCreated}) {
                     ))}
                 </MDBDropdownMenu>
             </MDBDropdown>
-            <MDBModal isOpen={!!selectedGroup} toggle={() => setSelectedGroup(null)}>
+            <MDBModal isOpen={!!selectedGroup} toggle={() => setSelectedGroup(null)} className="rounded">
                 <MDBModalHeader toggle={() => setSelectedGroup(null)}>Delete Group</MDBModalHeader>
                 <MDBModalBody>
                     Are you sure you want to delete the group "{selectedGroup?.name}"?
@@ -59,7 +60,7 @@ function DeleteGroup({ userId, setGroupDeleted, groupCreated}) {
                     <MDBBtn color="danger" onClick={toggleModal}>Delete</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
-            <MDBModal isOpen={modalOpen} toggle={toggleModal}>
+            <MDBModal isOpen={modalOpen} toggle={toggleModal} className="rounded">
                 <MDBModalHeader toggle={toggleModal}>Confirm Deletion</MDBModalHeader>
                 <MDBModalBody>
                     Are you sure you want to delete the group "{selectedGroup?.name}"? This action cannot be undone.
@@ -74,3 +75,4 @@ function DeleteGroup({ userId, setGroupDeleted, groupCreated}) {
 }
 
 export default DeleteGroup;
+

@@ -1,0 +1,18 @@
+.create-group-button{
+    background-color: #34b07f;
+    color: #fff;
+    border-radius: 20px;
+}
+
+
+.modal-dialog {
+    border-radius: 20px;
+}
+
+
+.create-group-modal {
+    background-image: linear-gradient(to bottom, #39e2a4, #4f4f4f);
+
+    color: #111010;
+
+}

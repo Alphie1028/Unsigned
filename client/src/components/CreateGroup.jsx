@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import "/src/styles/CreateGroup.css"
 
 function CreateGroup({userId, setGroupCreated}){
     const [name, setName] = useState("");
@@ -64,43 +65,31 @@ function CreateGroup({userId, setGroupCreated}){
     
     return (
         <div>
-            <MDBBtn color="primary" onClick={toggleModal}>
+            <MDBBtn className="create-group-button" color="primary" onClick={toggleModal}>
                 Create New Group
             </MDBBtn>
 
-            <MDBModal isOpen={modalOpen} toggle={toggleModal}>
-                <MDBModalHeader toggle={toggleModal}>Create New Group</MDBModalHeader>
+            <MDBModal className="create-group-modal" isOpen={modalOpen} toggle={toggleModal}>
+                <MDBModalHeader className="create-group-modal-header" toggle={toggleModal}>Create New Group</MDBModalHeader>
                 <MDBModalBody>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="name-input">Name:</label>
-                        <input
-                            type="text"
-                            id="name-input"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                            required
-                        />
+                        <input type="text" id="name-input" value={name} onChange={(event) => setName(event.target.value)} required />
                         <br />
                         <label htmlFor="description-input">Description:</label>
-                        <textarea
-                            id="description-input"
-                            value={description}
-                            onChange={(event) => setDescription(event.target.value)}
-                            required
-                        />
+                        <textarea id="description-input" value={description} onChange={(event) => setDescription(event.target.value)} required />
                         <br />
                     </form>
                 </MDBModalBody>
                 <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={toggleModal}>
+                    <MDBBtn className="create-group-cancel-button" color="secondary" onClick={toggleModal}>
                         Cancel
                     </MDBBtn>
-                    <MDBBtn color="primary" onClick={handleSubmit}>
+                    <MDBBtn className="create-group-submit-button" color="primary" onClick={handleSubmit}>
                         Create
                     </MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
-            
         </div>
     );
 }
