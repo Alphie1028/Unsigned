@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function FetchAllGroups({ children, groupCreated, groupDeleted}){
+function FetchAllGroups({ children, groupCreated, groupDeleted, joinedGroup}){
     const [groups, setGroups] = useState([]);
 
     useEffect(()=>{
@@ -15,7 +15,7 @@ function FetchAllGroups({ children, groupCreated, groupDeleted}){
         }
 
         fetchGroups()
-    }, [groupCreated, groupDeleted])
+    }, [groupCreated, groupDeleted, joinedGroup])
 
     return children({groups})
 }

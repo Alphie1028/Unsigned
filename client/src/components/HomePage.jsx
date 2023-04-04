@@ -9,6 +9,7 @@ import "/src/styles/HomePage.css"
 function HomePage({name, userId}){
     const [groupCreated, setGroupCreated] = useState(false);
     const [groupDeleted, setGroupDeleted] = useState(false);
+    const [joinedGroup, setJoinedGroup] = useState(false);
 
     return(
         <>
@@ -19,19 +20,19 @@ function HomePage({name, userId}){
                 <h1>MY GROUPS:</h1>
             </div>
             <br></br>            
-            <OwnedGroups userId={userId} groupCreated={groupCreated} groupDeleted={groupDeleted}/>            
+            <OwnedGroups userId={userId} groupCreated={groupCreated} groupDeleted={groupDeleted} joinedGroup={joinedGroup} setJoinedGroup={setJoinedGroup}/>            
             <br></br>
             <div id="memberOf">
                 <h1>MEMBER OF:</h1> 
             </div>
             <br></br>
-            <GroupsMemberOf userId={userId} groupCreated={groupCreated} groupDeleted={groupDeleted}/>
+            <GroupsMemberOf userId={userId} groupCreated={groupCreated} groupDeleted={groupDeleted} joinedGroup={joinedGroup} setJoinedGroup={setJoinedGroup} />
             <br></br>
             <div id="allGroups">
                 <h1>ALL GROUPS:</h1>    
             </div>
             <br></br>
-            <AllGroups groupCreated={groupCreated} groupDeleted={groupDeleted}/>
+            <AllGroups userId={userId} groupCreated={groupCreated} groupDeleted={groupDeleted} joinedGroup={joinedGroup} setJoinedGroup={setJoinedGroup} />
             
         </>
         

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
-function FetchOwnedGroups({userId, children, groupCreated, groupDeleted}){
+function FetchOwnedGroups({userId, children, groupCreated, groupDeleted, joinedGroup}){
     const [ownedGroups, setOwnedGroups] = useState([]);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -16,7 +16,7 @@ function FetchOwnedGroups({userId, children, groupCreated, groupDeleted}){
         }
 
         fetchOwnedGroups();
-    }, [userId, groupCreated, groupDeleted]);
+    }, [userId, groupCreated, groupDeleted, joinedGroup]);
 
     if (error) {
         return <div>Error: {error}</div>;
