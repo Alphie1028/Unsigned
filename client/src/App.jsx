@@ -3,6 +3,7 @@ import { useState } from "react";
 import Options from "./components/Options"
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
+import "/src/styles/Title.css"
 
 
 function App() {
@@ -30,8 +31,11 @@ function App() {
         <div className="shape"></div>
         <div className="shape"></div>
       </div>
-      <h1>Welcome!</h1>
+      
       <div id="test">
+        <div id="name" >
+          <h1>Unsigned</h1>
+        </div>
         <Options
           onSignInClick={handleSignInClick}
           onSignUpClick={handleSignUpClick}

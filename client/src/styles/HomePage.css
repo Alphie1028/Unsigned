@@ -1,5 +1,5 @@
 #myGroups {
-    background: linear-gradient(to right, #e0bbff, #d4fc79);
+    background: linear-gradient(to right, #b54a8c, #32b9f8);
     max-width: 20%;
     height: 80px;
     display: flex;
@@ -13,7 +13,7 @@
 }
 
 #memberOf {
-    background: linear-gradient(to right, #e0bbff, #d4fc79);
+    background: linear-gradient(to right, #24e65e, #9228f0);
     max-width: 20%;
     height: 80px;
     display: flex;
@@ -27,7 +27,7 @@
 }
 
 #allGroups {
-    background: linear-gradient(to right, #e0bbff, #d4fc79);
+    background: linear-gradient(to right, #0fb8f1, #5ce513);
     max-width: 20%;
     height: 80px;
     display: flex;
